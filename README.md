@@ -1,6 +1,7 @@
 # Description
 
 Jarvis - A Voice Assistant, built using python.
+Pip install all dependencies before using jarvis.
 
 # Usage
 
