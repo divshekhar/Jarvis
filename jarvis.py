@@ -26,6 +26,7 @@ class Jarvis(cmd.CommandPrompt):
     def change_label(self, text):
         listening_label.config(text=text)
 
+        # function to listen in background
     def listen_background(self):
         '''
         Function listens in the background.
