@@ -116,23 +116,24 @@ class Jarvis(cmd.CommandPrompt):
         self.speak("Do you want to search on Google? yes/no.")
         query = self.takeCommand()
         if 'yes' in query:
-            # searching directly for google images
-            self.speak("Do you want to search for an Image? Yes/No")
-            image_query = self.takeCommand()
-            if 'yes' in image_query:
-                self.speak("Which images you want to search?") # say the keyword, example "New York"
-                image_query = self.takeCommand()
-                image_query = image_query.replace(" ", "+")
-                image_search = 'https://www.google.com/search?q='+image_query+'&rlz=1C5CHFA_enUS860US860&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjqg__ehr3qAhUZyjgGHbcJDrgQ_AUoAXoECAwQAw&biw=1440&bih=788'
-                webbrowser.open_new_tab(image_search)
-            else:
-                self.speak("what you want to search?")
-                query = self.takeCommand()
-                result = query.replace(" ", "+")
-                webbrowser.open_new_tab(f"www.google.com/search?q={result}")
+            self.speak("what you want to search?")
+            query = self.takeCommand()
+            result = query.replace(" ", "+")
+            webbrowser.open_new_tab(f"www.google.com/search?q={result}")
         else:
             self.speak("Okay, Opening google.")
             webbrowser.open_new_tab("www.google.com")
+
+    def search_image(self):
+        self.speak("Which images do you want to search?") # say the keyword, example "New York"
+        query = self.takeCommand()
+        self.speak("Finding images of {}".format(query))
+        query = query.replace(" ", "+")
+        try:
+            image_search = 'https://www.google.com/search?q='+query+'&rlz=1C5CHFA_enUS860US860&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjqg__ehr3qAhUZyjgGHbcJDrgQ_AUoAXoECAwQAw&biw=1440&bih=788'
+            webbrowser.open_new_tab(image_search)
+        except:
+            self.speak("Image could not be found.")
 
     def wikipedia(self):
         self.speak('What you want to search in wikipedia?')
@@ -210,6 +211,8 @@ class Jarvis(cmd.CommandPrompt):
                 f"The current working directory is, {directory}, in disk, {disk}.")
         elif 'open application' in query:
             self.open_application()
+        elif 'find images' in query:
+            self.search_image()
         else:
             self.speak("Bye sir, Take care.")
             return
