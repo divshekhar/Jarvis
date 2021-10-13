@@ -122,6 +122,7 @@ class Jarvis(cmd.CommandPrompt):
             if 'yes' in image_query:
                 self.speak("Which images you want to search?") # say the keyword, example "New York"
                 image_query = self.takeCommand()
+                image_query = image_query.replace(" ", "+")
                 image_search = 'https://www.google.com/search?q='+image_query+'&rlz=1C5CHFA_enUS860US860&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjqg__ehr3qAhUZyjgGHbcJDrgQ_AUoAXoECAwQAw&biw=1440&bih=788'
                 webbrowser.open_new_tab(image_search)
             else:
