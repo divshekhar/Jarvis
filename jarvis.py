@@ -112,6 +112,7 @@ class Jarvis(cmd.CommandPrompt):
             self.speak("Okay, Opening youtube.")
             webbrowser.open_new_tab(f"www.youtube.com")
 
+    # function for google search
     def google(self):
         self.speak("Do you want to search on Google? yes/no.")
         query = self.takeCommand()
