@@ -85,7 +85,8 @@ class Jarvis(cmd.CommandPrompt):
                 self.speak("Some problem, please say that again.")
                 return "none"
             return query.lower()
-
+        
+    # function to wish
     def wishMe(self):
         hour = int(datetime.datetime.now().hour)
         text = ""
