@@ -47,6 +47,7 @@ class Jarvis(cmd.CommandPrompt):
                 return "none"
             return query.lower()
 
+    #Function to speak
     def speak(self, text):
         '''
         This function takes text in form of parameter and speaks
