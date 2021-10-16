@@ -11,6 +11,7 @@ from PIL import ImageTk, Image
 import tkinter.messagebox as messagebox
 from tkinter import *
 from threading import *
+from sys import platform
 
 
 class Jarvis(cmd.CommandPrompt):
@@ -123,6 +124,17 @@ class Jarvis(cmd.CommandPrompt):
             self.speak("Okay, Opening google.")
             webbrowser.open_new_tab("www.google.com")
 
+    def search_image(self):
+        self.speak("Which images do you want to search?") # say the keyword, example "New York"
+        query = self.takeCommand()
+        self.speak("Finding images of {}".format(query))
+        query = query.replace(" ", "+")
+        try:
+            image_search = 'https://www.google.com/search?q='+query+'&rlz=1C5CHFA_enUS860US860&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjqg__ehr3qAhUZyjgGHbcJDrgQ_AUoAXoECAwQAw&biw=1440&bih=788'
+            webbrowser.open_new_tab(image_search)
+        except:
+            self.speak("Image could not be found.")
+
     def wikipedia(self):
         self.speak('What you want to search in wikipedia?')
         query = self.takeCommand()
@@ -131,6 +143,20 @@ class Jarvis(cmd.CommandPrompt):
         except wikipedia.exceptions.PageError as e:
             result = str(e)
         self.speak(f"According to Wikipedia {result}")
+    
+    def open_application(self):
+        self.speak('Which application would you like to open?')
+        query = self.takeCommand()
+        try:
+            if platform == "darwin":
+                command = 'open -a "{}"'.format(str(query))
+            elif platform == "linux" or platform == "linux2":
+                command = query
+            else: # platform == "win32"
+                command = 'start {}'.format(str(query))
+            os.system(command)
+        except:
+            self.speak("I was not able to locate your application. Make sure you are in Desktop")
 
     def time(self):
         strTime = datetime.datetime.now().strftime("%H:%M")
@@ -183,6 +209,10 @@ class Jarvis(cmd.CommandPrompt):
             (disk, directory) = self.cwd()
             self.speak(
                 f"The current working directory is, {directory}, in disk, {disk}.")
+        elif 'open application' in query:
+            self.open_application()
+        elif 'find images' in query:
+            self.search_image()
         else:
             self.speak("Bye sir, Take care.")
             return
@@ -215,6 +245,8 @@ class JarvisUI(Jarvis):
         3. Open Visual Studio Code
         4. AutoGit
         5. Run Cmd
+        6. Open Applications
+        7. Search for Images
         ''')
 
     def menubar(self):
