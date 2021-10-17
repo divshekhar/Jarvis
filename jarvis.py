@@ -58,7 +58,8 @@ class Jarvis(cmd.CommandPrompt):
         '''
         self.engine.say(text)
         self.engine.runAndWait()
-
+        
+    # function to take command
     def takeCommand(self):
         '''
         This function listens the voice commands and transforms
